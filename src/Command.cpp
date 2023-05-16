@@ -171,7 +171,28 @@ Command Command::CmdPool[AvailableCommands] = {
     {Punsubscribe,      "punsubscribe",     1,  MaxArgs,   Write|SMultiKey},
     {Subscribe,         "subscribe",        2,  MaxArgs,   Write|SMultiKey|Private},
     {Unsubscribe,       "unsubscribe",      1,  MaxArgs,   Write|SMultiKey},
-    {SubMsg,            "\000SubMsg",       0,  0,         Admin}
+    {SubMsg,            "\000SubMsg",       0,  0,         Admin},
+
+    {Keys,              "keys",             2,  2,         Read},
+    {Flushdb,           "flushdb",          1,  2,         Write},
+    
+    {Client,            "client",           2,  MaxArgs,      Read},
+    {Xadd,              "xadd",             2,  MaxArgs,      Write},
+    {Xclaim,            "xclaim",           2,  MaxArgs,      Write},
+    {Xlen,              "xlen",             2,  2,            Read},
+    {Xrange,            "xrange",           4,  6,            Read},
+    {Xpending,          "xpending",         3,  MaxArgs,      Read},
+    {Xgroup,            "xgroup",           3,  MaxArgs,      Write},
+    {Xack,              "xack",             4,  MaxArgs,      Write},
+    {Xdel,              "xdel",             3,  MaxArgs,      Write},
+    {Xsetid,            "xsetid",           3,  MaxArgs,      Write},
+    {Xread,             "xread",            4,  MaxArgs,      Read},
+    {Xautoclaim,        "xautoclaim",       5,  MaxArgs,      Write},
+    {Xinfo,             "xinfo",            3,  MaxArgs,      Read},
+    {Xreadgroup,        "xreadgroup",       7,  MaxArgs,      Write},
+    {Xtrim,             "xtrim",            3,  MaxArgs,      Write},
+    {Xrevrange,         "xrevrange",        4,  6,            Read},
+    {Acl,               "acl",              2,  MaxArgs,      Write}
 };
 
 int Command::Sentinel = Command::MaxCommands;

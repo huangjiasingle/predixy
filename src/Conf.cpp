@@ -35,7 +35,7 @@ bool ServerConf::parse(ServerConf& s, const char* str)
 
 void CustomCommandConf::init(CustomCommandConf&c, const char* name) {
     c.name = name;
-    c.minArgs = 2;
+    c.minArgs = 1;
     c.maxArgs = 2;
     c.mode = Command::Write;
 }

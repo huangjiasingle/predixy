@@ -41,8 +41,16 @@ ConnectConnection* ConnectConnectionPool::getShareConnection(int db)
         logNotice("h %d create server connection %s %d",
                   mHandler->id(), c->peer(), c->fd());
     } else if (c->fd() < 0) {
-        if (mServ->fail()) {
-            return nullptr;
+        for (size_t i = 0; i < 100; i++){
+            if (mServ->fail()) {
+                usleep(10);
+                if (i==100){
+                    logNotice("getShareConnection mServ fail = %d",mServ->fail());
+                    return nullptr;
+                }
+            }else{
+                break;
+            }
         }
         c->reopen();
         needInit = true;
@@ -53,8 +61,17 @@ ConnectConnection* ConnectConnectionPool::getShareConnection(int db)
         c->close(mHandler);
         return nullptr;
     }
-    if (mServ->fail()) {
-        return nullptr;
+    
+    for (size_t i = 0; i < 100; i++){
+        if (mServ->fail()) {
+            usleep(10);
+            if (i==100){
+                logNotice("getShareConnection mServ fail = %d",mServ->fail());
+                return nullptr;
+            }
+        }else{
+            break;
+        }
     }
     return c;
 }
@@ -71,8 +88,16 @@ ConnectConnection* ConnectConnectionPool::getPrivateConnection(int db)
     ConnectConnection* c = ccl.pop_front();
     bool needInit = false;
     if (!c) {
-        if (mServ->fail()) {
-            return nullptr;
+        for (size_t i = 0; i < 100; i++){
+            if (mServ->fail()) {
+                usleep(10);
+                if (i==100){
+                    logNotice("getPrivateConnection mServ fail = %d",mServ->fail());
+                    return nullptr;
+                }
+            }else{
+                break;
+            }
         }
         c = ConnectConnectionAlloc::create(mServ, false);
         c->setDb(db);
@@ -82,8 +107,16 @@ ConnectConnection* ConnectConnectionPool::getPrivateConnection(int db)
                   mHandler->id(), c->peer(), c->fd());
     }
     if (c->fd() < 0) {
-        if (mServ->fail()) {
-            return nullptr;
+        for (size_t i = 0; i < 100; i++){
+            if (mServ->fail()) {
+                usleep(10);
+                if (i==100){
+                    logNotice("getPrivateConnection mServ fail = %d",mServ->fail());
+                    return nullptr;
+                }
+            }else{
+                break;
+            }
         }
         c->reopen();
         needInit = true;

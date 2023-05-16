@@ -49,7 +49,7 @@ Server* ServerGroup::getServer(Handler* h, Request* req) const
     Server* serv = nullptr;
     if (req->requireWrite()) {
         int cnt = mServs.size();
-        for (int i = 0; i < cnt; ++i) {
+	for (int i = cnt-1; i >= 0; --i) {
             Server* s = mServs[i];
             if (!s->online()) {
                 continue;
@@ -57,6 +57,9 @@ Server* ServerGroup::getServer(Handler* h, Request* req) const
             if (s->role() == Server::Master) {
                 serv = s;
                 break;
+                if (!s->fail()){
+                    break;
+                }
             }
         }
     } else if (auto dataCenter = mPool->proxy()->dataCenter()) {

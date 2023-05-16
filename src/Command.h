@@ -193,6 +193,28 @@ public:
         Unsubscribe,
         SubMsg,
 
+        Keys,
+        Flushdb,
+
+        Client,
+        Xadd,
+        Xclaim,
+        Xlen,
+        Xrange,
+        Xpending,
+        Xgroup,
+        Xack,
+        Xdel,
+        Xsetid,
+        Xread,
+        Xautoclaim,
+        Xinfo,
+        Xreadgroup,
+        Xtrim,
+        Xrevrange,
+
+        Acl,
+
         MaxCommands,
         MaxCustomCommands = 16,
         AvailableCommands = MaxCommands + MaxCustomCommands,
